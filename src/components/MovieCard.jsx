@@ -3,12 +3,13 @@ import { Card } from 'react-bootstrap';
 
 const MovieCard = React.memo(({ movie }) => {
   return (
-    <Card style={{ width: '100%', height: '60vh', borderRadius: '20px', marginRight: '20px' }} className="mb-4 shadow">
-      <Card.Img style={{ borderRadius: '20px 20px 0 0' }}
+    <Card className="mb-4 shadow" style={{ borderRadius: '20px' }}>
+      <Card.Img
         variant="top"
         src={movie.thumbnail}
         alt={movie.title}
         loading="lazy"
+        style={{ borderRadius: '20px 20px 0 0', height: '30vh', objectFit: 'cover' }}
       />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
@@ -18,4 +19,4 @@ const MovieCard = React.memo(({ movie }) => {
   );
 });
 
-export default MovieCard; 
+export default MovieCard;

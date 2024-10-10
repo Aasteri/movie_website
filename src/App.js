@@ -38,7 +38,7 @@ const MovieGrid = () => {
   const { movies } = React.useContext(require('./context/MovieContext').MovieContext);
 
   return movies.map((movie) => (
-    <Col key={movie.id} xs={12} sm={6} md={3} lg={4}>
+    <Col key={movie.id} xs={12} sm={6} md={3} lg={4} className="d-flex justify-content-center">
       <MovieCard movie={movie} />
     </Col>
   ));

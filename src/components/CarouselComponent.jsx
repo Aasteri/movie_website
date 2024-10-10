@@ -1,19 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { MovieContext } from '../context/MovieContext';
 import Lottie from 'react-lottie';
 import movieAnimation from '../Lottie/movie-animation.json';
 
-
 const CarouselComponent = () => {
   const { movies } = useContext(MovieContext);
-  const carouselMovies = movies.slice(0, 5); 
+  const carouselMovies = movies.slice(0, 5);
+
+  // State to determine if Lottie should be displayed
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Update state based on window size
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Lottie animation options
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: movieAnimation, 
+    animationData: movieAnimation,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
@@ -29,7 +41,7 @@ const CarouselComponent = () => {
               className="d-block w-100"
               src={movie.thumbnail}
               alt={movie.title}
-              style={{ height: '80vh', objectFit: 'cover' }} 
+              style={{ height: '80vh', objectFit: 'cover' }}
               loading="lazy"
             />
 
@@ -46,9 +58,11 @@ const CarouselComponent = () => {
                   </div>
 
                   {/* Right Side: Lottie Animation */}
-                  <div className="col-md-6 lottie-section">
-                    <Lottie options={defaultOptions} height={400} width={400} />
-                  </div>
+                  {!isMobile && (
+                    <div className="col-md-6 lottie-section">
+                      <Lottie options={defaultOptions} height={400} width={400} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
